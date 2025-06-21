@@ -29,7 +29,7 @@ class ChatSystem {
         
         // Connect to WebSocket server
         // REPLACE THIS URL with your Render.com deployment URL
-        this.connectToWebSocket('wss://echoclient.onrender.com');
+        this.connectToWebSocket('https://echoclient.onrender.com');
     }
 
     createChatUI() {
