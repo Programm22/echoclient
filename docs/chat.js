@@ -440,6 +440,45 @@ class ChatSystem {
     }
 }
 
+// Connect to WebSocket server with proper URL detection
+connectToWebSocket() {
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const host = window.location.hostname;
+    const port = window.location.port ? `:${window.location.port}` : '';
+    const wsUrl = `${protocol}//${host}${port}`;
+    
+    this.socket = new WebSocket(wsUrl);
+    
+    this.socket.onopen = () => {
+        console.log('WebSocket connection established');
+        this.isConnected = true;
+        this.addSystemMessage("Connected to chat server. Enter a username to join the conversation.");
+        this.chatWindow.classList.add('connected');
+    };
+    
+    this.socket.onmessage = (event) => {
+        try {
+            const message = JSON.parse(event.data);
+            this.handleServerMessage(message);
+        } catch (error) {
+            console.error('Error parsing message:', error);
+        }
+    };
+    
+    this.socket.onclose = () => {
+        this.isConnected = false;
+        this.chatWindow.classList.remove('connected');
+        this.addSystemMessage("Disconnected from chat server. Attempting to reconnect...");
+        
+        // Try to reconnect after a delay
+        setTimeout(() => this.connectToWebSocket(), 3000);
+    };
+    
+    this.socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+    };
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     new ChatSystem();
 });
