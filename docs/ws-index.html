@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Territorial.io Client</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-client">
+        <div class="game-container" id="gameContainer">
+            <div class="loading-screen" id="loadingScreen">
+                <div class="spinner"></div>
+                <p>Loading Territorial.io...</p>
+            </div>
+            <iframe id="gameFrame" src="https://www.territorial.io/" frameborder="0"></iframe>
+            
+            <!-- Game Overlay -->
+            <div class="game-overlay" id="gameOverlay">
+                <div class="quick-actions">
+                    <button id="chatBtn">Open Chat</button>
+                    <button id="fullscreenBtn">Fullscreen</button>
+                </div>
+            </div>
+            
+            <!-- Game Notification -->
+            <div class="game-notification" id="gameNotification"></div>
+        </div>
+    </div>
+    
+    <script src="ws-chat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
